@@ -258,7 +258,7 @@ class PermohonanController extends Controller
             ->where('kecamatan', $request->kecamatan)
             ->when($request->name, function ($query) use ($request) {
                 $query->where('kelurahan', 'like', '%' . $request->name . '%');
-            })
+            })->orderBy('kelurahan', 'asc')
             ->get();
         $data = [
             'code' => 200,
@@ -270,10 +270,11 @@ class PermohonanController extends Controller
 
     public function kecamatan(Request $request)
     {
+	//config()->set('database.connections.mysql.strict', false);
         $data['kecamatan'] = Kelurahan::select('id', 'kecamatan', 'kelurahan')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('kecamatan', 'like', '%' . $request->name . '%');
-            })->groupBy('kecamatan')
+            })->orderBy('kecamatan', 'asc')->groupBy('kecamatan')
             ->get();
         $data = [
             'code' => 200,
