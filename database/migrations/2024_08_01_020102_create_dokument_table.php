@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dokument', function (Blueprint $table) {
-            $table->unsignedBigInteger('dokument_id')->primary();
+            $table->increments('dokument_id')->primary();
             $table->unsignedSmallInteger('permohonan_id');
             $table->string('tipe_dokument', 50);
             $table->string('file');

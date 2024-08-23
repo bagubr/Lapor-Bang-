@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FotoKerusakanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InspeksiController;
@@ -13,9 +14,9 @@ App::setLocale('id');
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('landing');
 
-// Route::get('/pemohon', [PemohonController::class, 'index'])->name('pemohon');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::resource('/pemohon', PemohonController::class);
     Route::resource('/inspektor', InspeksiController::class);
